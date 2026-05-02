@@ -27,7 +27,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-[#00132F] px-5 pt-12 text-white" dir="rtl">
+    <footer className="bg-[#00132F] px-5 pt-12 text-white">
       <div className="mx-auto max-w-6xl">
         <div className="grid gap-10 md:grid-cols-[1.3fr_1fr_1fr_1fr]">
           {/* Brand */}
