@@ -29,7 +29,7 @@ const RegisterForm = () => {
             <input
               type="text"
               placeholder="הכניסו שם מלא"
-              className="w-full min-w-0 bg-transparent text-sm outline-none placeholder:text-slate-400"
+              className="w-full min-w-0 bg-transparent text-base outline-none placeholder:text-slate-400"
             />
           </div>
         </div>
@@ -44,7 +44,7 @@ const RegisterForm = () => {
             <input
               type="email"
               placeholder="example@email.com"
-              className="w-full min-w-0 bg-transparent text-sm outline-none placeholder:text-slate-400"
+              className="w-full min-w-0 bg-transparent text-base outline-none placeholder:text-slate-400"
             />
           </div>
         </div>
@@ -59,7 +59,7 @@ const RegisterForm = () => {
             <input
               type="password"
               placeholder="בחרו סיסמה"
-              className="w-full min-w-0 bg-transparent text-sm outline-none placeholder:text-slate-400"
+              className="w-full min-w-0 bg-transparent text-base outline-none placeholder:text-slate-400"
             />
           </div>
         </div>

@@ -1,9 +1,14 @@
+"use client";
 import Image from "next/image";
 import logo from "@/assets/images/Group 14.png";
 import { FaRegBell } from "react-icons/fa";
 import { RxHamburgerMenu } from "react-icons/rx";
+import MobileNav from "./MobileNav";
+import { useState } from "react";
+import { AnimatePresence } from "framer-motion";
 
 const Header = () => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
     <header className="w-full bg-white border-b border-gray-100 shadow-sm">
       <div className="flex items-center justify-between px-4 py-3">
@@ -28,10 +33,18 @@ const Header = () => {
         </div>
 
         {/* Left: Menu */}
-        <button className="p-2 rounded-full hover:bg-gray-100 transition">
+        <button
+          onClick={() => setSidebarOpen(true)}
+          className="p-2 rounded-full hover:bg-gray-100 transition"
+        >
           <RxHamburgerMenu className="size-6 text-gray-800" />
         </button>
       </div>
+
+      {/* Menu Model */}
+      <AnimatePresence>
+        {sidebarOpen && <MobileNav onClose={() => setSidebarOpen(false)} sidebarOpen={sidebarOpen} />}
+      </AnimatePresence>
     </header>
   );
 };
