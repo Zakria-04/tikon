@@ -5,13 +5,16 @@ import { motion } from "framer-motion";
 import {
   FiHome,
   FiBriefcase,
-  FiUserPlus,
   FiLogIn,
   FiSearch,
+  FiUser,
+  FiLogOut,
+  FiGrid,
 } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
 import { FaTools, FaPlusCircle } from "react-icons/fa";
 import { useEffect } from "react";
+import { useAuthStore } from "@/store/authStore";
 
 type MobileNavProps = {
   onClose: () => void;
@@ -19,6 +22,24 @@ type MobileNavProps = {
 };
 
 const MobileNav = ({ onClose, sidebarOpen }: MobileNavProps) => {
+  const { user, auth } = useAuthStore();
+  console.log("user", user);
+  
+  // later this should come from your auth state/context
+  // const user = {
+  //   isLoggedIn: false,
+  //   name: "יוסף כהן",
+  //   role: "professional", // "customer" | "professional"
+  // };
+
+  const isProfessional = user?.role === "professional";
+
+  const dashboardPath = isProfessional
+    ? "/dashboard/professional"
+    : "/dashboard/customer";
+
+  const roleLabel = isProfessional ? "בעל מקצוע" : "לקוח";
+
   const nav = [
     {
       id: 1,
@@ -28,21 +49,26 @@ const MobileNav = ({ onClose, sidebarOpen }: MobileNavProps) => {
     },
     {
       id: 2,
-      label: "חיפוש עבודות",
+      label: "עבודות פתוחות",
       icon: <FiBriefcase />,
       path: "/jobs",
     },
     {
       id: 3,
-      label: "חיפוש בעל מקצוע",
+      label: "בעלי מקצוע",
       icon: <FiSearch />,
       path: "/professionals",
+    },
+    {
+      id: 4,
+      label: "הזדמנויות עבודה",
+      icon: <FaTools />,
+      path: "/job-openings",
     },
   ];
 
   useEffect(() => {
     if (sidebarOpen) {
-      // Save the current scroll position
       const scrollY = window.scrollY;
 
       document.body.style.position = "fixed";
@@ -61,7 +87,6 @@ const MobileNav = ({ onClose, sidebarOpen }: MobileNavProps) => {
   return (
     <motion.div
       className="fixed inset-0 z-50 bg-[#00132F]/50 p-3 backdrop-blur-sm"
-      dir="rtl"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -90,7 +115,7 @@ const MobileNav = ({ onClose, sidebarOpen }: MobileNavProps) => {
             </button>
 
             <div>
-              <h2 className="text-2xl font-black text-left">Tikon</h2>
+              <h2 className="text-left text-2xl font-black">Tikon</h2>
               <p className="mt-1 text-sm text-white/65">
                 מצאו שירותים ועבודות באזור שלכם
               </p>
@@ -159,26 +184,70 @@ const MobileNav = ({ onClose, sidebarOpen }: MobileNavProps) => {
           ))}
         </nav>
 
-        {/* Bottom */}
+        {/* Bottom Account Area */}
         <div className="border-t border-slate-200 bg-white p-4">
-          <div className="grid grid-cols-2 gap-3">
-            <Link
-              href="/login"
-              onClick={onClose}
-              className="flex items-center justify-center gap-2 rounded-2xl border border-slate-200 px-4 py-3 text-sm font-bold text-[#00132F] transition hover:border-[#FEBC37] hover:bg-[#FEBC37]/10"
-            >
-              <FiLogIn />
-              התחברות
-            </Link>
+          {auth ? (
+            <div className="space-y-3">
+              {/* Profile Preview */}
+              <Link
+                href={dashboardPath}
+                onClick={onClose}
+                className="flex items-center gap-3 rounded-3xl bg-slate-50 p-3 transition hover:bg-[#FEBC37]/10"
+              >
+                <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#00132F] text-white">
+                  <FiUser size={20} />
+                </div>
 
-            <Link
-              href="/register"
-              onClick={onClose}
-              className="rounded-2xl bg-[#00132F] px-4 py-3 text-center text-sm font-bold text-white transition hover:bg-[#FEBC37] hover:text-[#00132F]"
-            >
-              הרשמה
-            </Link>
-          </div>
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-sm font-black text-[#00132F]">
+                    שלום, {user.name}
+                  </p>
+
+                  <p className="mt-0.5 text-xs font-medium text-slate-500">
+                    {roleLabel}
+                  </p>
+                </div>
+              </Link>
+
+              <div className="grid grid-cols-2 gap-3">
+                <Link
+                  href={dashboardPath}
+                  onClick={onClose}
+                  className="flex items-center justify-center gap-2 rounded-2xl bg-[#00132F] px-4 py-3 text-sm font-bold text-white transition hover:bg-[#FEBC37] hover:text-[#00132F]"
+                >
+                  <FiGrid />
+                  דשבורד
+                </Link>
+
+                <button
+                  type="button"
+                  className="flex items-center justify-center gap-2 rounded-2xl border border-slate-200 px-4 py-3 text-sm font-bold text-[#00132F] transition hover:border-red-200 hover:bg-red-50 hover:text-red-600"
+                >
+                  <FiLogOut />
+                  יציאה
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 gap-3">
+              <Link
+                href="/login"
+                onClick={onClose}
+                className="flex items-center justify-center gap-2 rounded-2xl border border-slate-200 px-4 py-3 text-sm font-bold text-[#00132F] transition hover:border-[#FEBC37] hover:bg-[#FEBC37]/10"
+              >
+                <FiLogIn />
+                התחברות
+              </Link>
+
+              <Link
+                href="/register"
+                onClick={onClose}
+                className="rounded-2xl bg-[#00132F] px-4 py-3 text-center text-sm font-bold text-white transition hover:bg-[#FEBC37] hover:text-[#00132F]"
+              >
+                הרשמה
+              </Link>
+            </div>
+          )}
         </div>
       </motion.aside>
     </motion.div>
