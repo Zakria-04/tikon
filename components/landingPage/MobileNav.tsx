@@ -22,18 +22,7 @@ type MobileNavProps = {
 };
 
 const MobileNav = ({ onClose, sidebarOpen }: MobileNavProps) => {
-  const { user, auth, getProfile } = useAuthStore();
-
-  // later this should come from your auth state/context
-  // const user = {
-  //   isLoggedIn: false,
-  //   name: "יוסף כהן",
-  //   role: "professional", // "customer" | "professional"
-  // };
-
-  useEffect(() => {
-    getProfile();
-  }, [getProfile]);
+  const { user, auth, logout } = useAuthStore();
 
   const isProfessional = user?.role === "professional";
 
@@ -69,6 +58,10 @@ const MobileNav = ({ onClose, sidebarOpen }: MobileNavProps) => {
     //   path: "/job-openings",
     // },
   ];
+
+  const logoutUser = () => {
+    logout();
+  };
 
   useEffect(() => {
     if (sidebarOpen) {
@@ -223,6 +216,7 @@ const MobileNav = ({ onClose, sidebarOpen }: MobileNavProps) => {
                 </Link>
 
                 <button
+                  onClick={logoutUser}
                   type="button"
                   className="flex items-center justify-center gap-2 rounded-2xl border border-slate-200 px-4 py-3 text-sm font-bold text-[#00132F] transition hover:border-red-200 hover:bg-red-50 hover:text-red-600"
                 >

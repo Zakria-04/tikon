@@ -26,6 +26,11 @@ export const getProfileAPI = () => {
   return appFetch(route, "GET");
 };
 
+export const logoutAPI = () => {
+  const route = `${AUTH_API}/logout`;
+  return appFetch(route, "POST");
+};
+
 // Axios instance for API calls //
 const api = axios.create({
   baseURL: MainDomain,

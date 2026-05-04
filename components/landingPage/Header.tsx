@@ -5,14 +5,18 @@ import logo from "@/assets/images/Group 14.png";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { FaUserCircle } from "react-icons/fa";
 import MobileNav from "./MobileNav";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import { useAuthStore } from "@/store/authStore";
 
 const Header = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const { user, auth } = useAuthStore();
+  const { user, auth, getProfile } = useAuthStore();
+
+  useEffect(() => {
+    getProfile();
+  }, [getProfile]);
 
   return (
     <header className="w-full border-b border-gray-100 bg-white shadow-sm">

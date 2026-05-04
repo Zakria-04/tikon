@@ -1,6 +1,11 @@
 import { create } from "zustand";
 import { produce } from "immer";
-import { getProfileAPI, loginAPI, registerAPI } from "@/assets/res/api";
+import {
+  getProfileAPI,
+  loginAPI,
+  logoutAPI,
+  registerAPI,
+} from "@/assets/res/api";
 import { AuthStoreType } from "./types/AuthStoreType";
 
 export const useAuthStore = create<AuthStoreType>((set) => ({
@@ -70,7 +75,31 @@ export const useAuthStore = create<AuthStoreType>((set) => ({
       throw error;
     }
   },
-  logout: () => set({ user: null, auth: false }),
+  logout: async () => {
+    try {
+      await logoutAPI();
+
+      set(
+        produce<AuthStoreType>((state) => {
+          state.user = null;
+          state.auth = false;
+          state.isLoading = false;
+          state.error = null;
+        }),
+      );
+    } catch (error) {
+      console.error("Failed to logout", error);
+
+      set(
+        produce<AuthStoreType>((state) => {
+          state.user = null;
+          state.auth = false;
+          state.isLoading = false;
+          state.error = "Failed to logout";
+        }),
+      );
+    }
+  },
   getProfile: async () => {
     set({ isLoading: true, error: null });
     try {
