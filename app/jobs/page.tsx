@@ -19,6 +19,7 @@ import Jobs from "./components/Jobs";
 const JobsPage = () => {
   const jobs = [
     {
+      _id: "1",
       title: "צביעת חדר שינה",
       category: "צביעה",
       city: "חיפה",
@@ -31,6 +32,7 @@ const JobsPage = () => {
       imagesCount: 4,
     },
     {
+      _id: "2",
       title: "הרכבת ארון בגדים",
       category: "הרכבת רהיטים",
       city: "עכו",
@@ -43,6 +45,7 @@ const JobsPage = () => {
       imagesCount: 3,
     },
     {
+      _id: "3",
       title: "תיקון נזילה מתחת לכיור",
       category: "אינסטלציה",
       city: "נהריה",
@@ -54,6 +57,7 @@ const JobsPage = () => {
       imagesCount: 1,
     },
     {
+      _id: "4",
       title: "שטיפת רכב בבית הלקוח",
       category: "שטיפת רכב",
       city: "כרמיאל",
@@ -66,6 +70,7 @@ const JobsPage = () => {
       imagesCount: 4,
     },
     {
+      _id: "5",
       title: "תליית מדפים בסלון",
       category: "תיקונים קטנים",
       city: "קריות",
@@ -78,6 +83,7 @@ const JobsPage = () => {
       imagesCount: 4,
     },
     {
+      _id: "6",
       title: "ניקיון דירה לאחר מעבר",
       category: "ניקיון",
       city: "חיפה",

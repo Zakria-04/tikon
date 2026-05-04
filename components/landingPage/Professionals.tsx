@@ -126,10 +126,10 @@ const Professionals = () => {
                       </p>
                     </div>
 
-                    <div className="flex items-center gap-1 rounded-full bg-[#FEBC37]/15 px-3 py-1 text-xs font-bold text-[#00132F]">
+                    {/* <div className="flex items-center gap-1 rounded-full bg-[#FEBC37]/15 px-3 py-1 text-xs font-bold text-[#00132F]">
                       <FaStar className="text-[#FEBC37]" />
                       {pro.rating}
-                    </div>
+                    </div> */}
                   </div>
 
                   <div className="mt-2 flex flex-wrap items-center gap-3 text-xs text-slate-500">

@@ -1,4 +1,6 @@
+'use client'
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 import {
   FaArrowLeft,
@@ -12,6 +14,7 @@ import {
 
 interface JobsType {
   jobs: {
+    _id: string;
     title: string;
     category: string;
     city: string;
@@ -25,6 +28,10 @@ interface JobsType {
 }
 
 const Jobs = ({ jobs }: JobsType) => {
+  const router = useRouter();
+  const handleJobClick = (jobId: string) => {
+    router.push(`/jobs/${jobId}`);
+  };
   return (
     <section className="px-5 py-8">
       <div className="mx-auto max-w-6xl">
@@ -110,7 +117,7 @@ const Jobs = ({ jobs }: JobsType) => {
                       <FaArrowLeft className="text-xs" />
                     </Link>
 
-                    <button className="rounded-2xl border border-slate-200 px-4 py-3 text-sm font-bold text-[#00132F] transition hover:border-[#FEBC37] hover:bg-[#FEBC37]/10">
+                    <button onClick={() => handleJobClick(job._id)} className="rounded-2xl border border-slate-200 px-4 py-3 text-sm font-bold text-[#00132F] transition hover:border-[#FEBC37] hover:bg-[#FEBC37]/10">
                       פרטים נוספים
                     </button>
                   </div>
