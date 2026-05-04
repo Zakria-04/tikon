@@ -1,7 +1,8 @@
-'use client'
+"use client";
 import profile from "@/assets/images/profile.png";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import {
   FaStar,
   FaMapMarkerAlt,
@@ -13,6 +14,7 @@ import { MdVerified } from "react-icons/md";
 
 const Professionals = () => {
   const router = useRouter();
+  const [showAll, setShowAll] = useState(false);
   const profiles = [
     {
       _id: "1",
@@ -60,7 +62,21 @@ const Professionals = () => {
       reviews: 42,
       profile,
     },
+    {
+      _id: "5",
+      name: "מוחמד עבד",
+      category: "מיזוג אוויר",
+      city: "כרמיאל",
+      description: "התקנה, ניקוי ותיקון מזגנים עם שירות מהיר ומקצועי.",
+      experience: 7,
+      rating: 4.9,
+      reviews: 42,
+      profile,
+    },
   ];
+
+  const visibleProfiles = showAll ? profiles : profiles.slice(0, 4);
+  const hasMoreProfiles = profiles.length > 4;
 
   const navigateToProfessionalsProfile = (id: string) => {
     router.push(`/professionals/${id}`);
@@ -93,7 +109,7 @@ const Professionals = () => {
 
         {/* Cards */}
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          {profiles.map((pro, index) => (
+          {visibleProfiles.map((pro, index) => (
             <article
               key={`${pro.name}-${index}`}
               className="rounded-3xl border border-slate-100 bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:border-[#FEBC37]/50 hover:shadow-xl"
@@ -171,9 +187,14 @@ const Professionals = () => {
           ))}
         </div>
 
-        <button className="mt-5 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-bold text-[#00132F] shadow-sm transition hover:border-[#FEBC37] hover:bg-[#FEBC37]/10 sm:hidden">
-          הצג הכל
-        </button>
+        {hasMoreProfiles && (
+          <button
+            onClick={() => setShowAll((prev) => !prev)}
+            className="mt-5 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-bold text-[#00132F] shadow-sm transition hover:border-[#FEBC37] hover:bg-[#FEBC37]/10 sm:hidden"
+          >
+            {showAll ? "הצג פחות" : `הצג עוד ${profiles.length - 4}`}
+          </button>
+        )}
       </div>
     </section>
   );
