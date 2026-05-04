@@ -1,11 +1,11 @@
 import Image from "next/image";
 
-import Header from "@/components/landingPage/Header";
 import Hero from "@/components/landingPage/Hero";
 import Categories from "@/components/landingPage/Categories";
 import Professionals from "@/components/landingPage/Professionals";
 import PostJobCTA from "@/components/landingPage/PostJobCTA";
 import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 
 const page = () => {
   return (
