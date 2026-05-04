@@ -2,47 +2,71 @@ import React from "react";
 import Image from "next/image";
 import electrician from "@/assets/images/electrician.png";
 import { FaArrowLeft } from "react-icons/fa";
+import paintRoller from "@/assets/images/paint-roller.png";
+import plumber from "@/assets/images/plumber.png";
+import materials from "@/assets/images/material.png";
+import tile from "@/assets/images/tile.png";
+import closet from "@/assets/images/closet.png";
+import renovation from "@/assets/images/renovation.png";
+import ac from "@/assets/images/air-conditioner.png";
 
 const Categories = () => {
   const categories = [
     {
-      name: "חשמל",
+      name: "שיפוצים",
+      bio: "שיפוץ ביתי",
+      image: renovation,
+    },
+    {
+      name: "חשמלי",
+      bio: "תיקוני חשמל",
       image: electrician,
     },
     {
       name: "צבע",
-      image: electrician,
+      bio: "צביעת בתים",
+      image: paintRoller,
     },
     {
       name: "אינסטלציה",
-      image: electrician,
+      bio: "תיקוני צנרת",
+      image: plumber,
+    },
+
+    {
+      name: "מזגנים",
+      bio: "ריצוף וחיפוי",
+      image: ac,
     },
     {
-      name: "מיזוג",
-      image: electrician,
+      name: "ריצוף",
+      bio: "ריצוף וחיפוי",
+      image: tile,
     },
     {
       name: "נגרות",
-      image: electrician,
+      bio: "ארונות ומטבחים",
+      image: closet,
     },
     {
-      name: "ניקיון",
-      image: electrician,
+      name: "גבס",
+      bio: "עבודות גבס",
+      image: materials,
     },
   ];
 
   return (
-    <section className="px-5 pb-10" dir="rtl">
+    <section className="px-5 pb-10 mt-10">
       <div className="mx-auto max-w-6xl">
         {/* Section Header */}
         <div className="mb-5 flex items-end justify-between gap-4">
           <div>
-            <h2 className="text-2xl font-bold text-[#00132F]">
-              מצאו שירות לפי קטגוריה
+            <h2 className="text-2xl font-black text-[#00132F]">
+              בעלי המקצוע הכי מבוקשים לבית
             </h2>
 
             <p className="mt-1 text-sm leading-6 text-slate-500">
-              בחרו את סוג השירות שאתם צריכים והתחילו למצוא איש מקצוע מתאים.
+              מצאו במהירות איש מקצוע לעבודות תיקון, שיפוץ ותחזוקה בבית
             </p>
           </div>
 
@@ -60,7 +84,7 @@ const Categories = () => {
               className="group rounded-3xl border border-slate-100 bg-white p-4 text-right shadow-sm transition hover:-translate-y-1 hover:border-[#FEBC37]/60 hover:shadow-lg"
             >
               <div className="flex items-center gap-3">
-                <div className="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-[#FEBC37]/15 transition group-hover:bg-[#FEBC37]/25">
+                <div className="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-[#FEBC37]/10 transition group-hover:bg-[#FEBC37]/20">
                   <Image
                     src={category.image}
                     alt={`${category.name} category`}
@@ -74,7 +98,7 @@ const Categories = () => {
                   <h3 className="font-bold text-[#00132F]">{category.name}</h3>
 
                   <p className="mt-0.5 text-xs text-slate-500">
-                    בעלי מקצוע זמינים
+                    {category.bio || "בעלי מקצוע זמינים"}
                   </p>
                 </div>
               </div>

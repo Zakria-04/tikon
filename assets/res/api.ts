@@ -1,14 +1,29 @@
+import {
+  CustomerProfile,
+  ProfessionalProfile,
+} from "@/store/types/AuthStoreType";
 import axios, { AxiosError } from "axios";
 
 const MainDomain = process.env.NEXT_PUBLIC_MAIN_DOMAIN;
 
 const API_BASE = "/api";
 const AUTH_API = `${API_BASE}/auth`;
+const USER_API = `${API_BASE}/user`;
 
-// Auth API
+// Auth | USER APIS
 export const loginAPI = (body: { email: string; password: string }) => {
   const route = AUTH_API + "/login";
   return appFetch(route, "POST", body);
+};
+
+export const registerAPI = (body: ProfessionalProfile | CustomerProfile) => {
+  const route = `${AUTH_API}/register`;
+  return appFetch(route, "POST", body);
+};
+
+export const getProfileAPI = () => {
+  const route = `${USER_API}/profile`;
+  return appFetch(route, "GET");
 };
 
 // Axios instance for API calls //
@@ -58,7 +73,7 @@ const appFetch = async (
       } catch (refreshError) {
         // If refresh also fails, redirect to home page
         console.error("Token refresh failed", refreshError);
-        window.location.href = "/";
+        // window.location.href = "/";
         throw new Error("Session expired. Please log in again.");
       }
     }

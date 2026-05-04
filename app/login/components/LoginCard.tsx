@@ -6,7 +6,7 @@ import { useState } from "react";
 import { FaArrowLeft, FaEnvelope, FaLock } from "react-icons/fa";
 
 const LoginCard = () => {
-  const router = useRouter()
+  const router = useRouter();
   const { login, isLoading, error, user } = useAuthStore();
 
   const [form, setForm] = useState({
@@ -19,12 +19,9 @@ const LoginCard = () => {
 
     try {
       const user = await login(form);
-      console.log("user succ", user);
-      
+
       if (user) {
-        console.log("logged succ");
-        
-        router.push("/")
+        router.push("/");
       }
     } catch (error) {
       console.error("got an error ", error);

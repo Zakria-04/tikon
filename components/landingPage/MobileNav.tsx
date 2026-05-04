@@ -22,15 +22,18 @@ type MobileNavProps = {
 };
 
 const MobileNav = ({ onClose, sidebarOpen }: MobileNavProps) => {
-  const { user, auth } = useAuthStore();
-  console.log("user", user);
-  
+  const { user, auth, getProfile } = useAuthStore();
+
   // later this should come from your auth state/context
   // const user = {
   //   isLoggedIn: false,
   //   name: "יוסף כהן",
   //   role: "professional", // "customer" | "professional"
   // };
+
+  useEffect(() => {
+    getProfile();
+  }, [getProfile]);
 
   const isProfessional = user?.role === "professional";
 
@@ -59,12 +62,12 @@ const MobileNav = ({ onClose, sidebarOpen }: MobileNavProps) => {
       icon: <FiSearch />,
       path: "/professionals",
     },
-    {
-      id: 4,
-      label: "הזדמנויות עבודה",
-      icon: <FaTools />,
-      path: "/job-openings",
-    },
+    // {
+    //   id: 4,
+    //   label: "הזדמנויות עבודה",
+    //   icon: <FaTools />,
+    //   path: "/job-openings",
+    // },
   ];
 
   useEffect(() => {
@@ -200,7 +203,7 @@ const MobileNav = ({ onClose, sidebarOpen }: MobileNavProps) => {
 
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-sm font-black text-[#00132F]">
-                    שלום, {user.name}
+                    שלום, {user?.name}
                   </p>
 
                   <p className="mt-0.5 text-xs font-medium text-slate-500">

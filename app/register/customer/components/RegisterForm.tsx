@@ -1,7 +1,35 @@
+"use client";
+import { useAuthStore } from "@/store/authStore";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { FaArrowLeft, FaEnvelope, FaLock, FaUser } from "react-icons/fa";
 
 const RegisterForm = () => {
+  const router = useRouter();
+  const { register } = useAuthStore();
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+    role: "customer",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const response = await register(form);
+      if (response) {
+        router.push("/");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <section className="relative z-20 mx-auto -mt-16 w-[92%] max-w-md rounded-4xl bg-white p-5 shadow-2xl sm:-mt-20 sm:p-6 lg:absolute lg:left-[25%] lg:top-2/6 lg:mx-0 lg:mt-0 lg:-translate-x-1/2 lg:-translate-y-1/2 lg:p-7 xl:left-[32%]">
       <div className="mb-5 sm:mb-6">
@@ -18,7 +46,7 @@ const RegisterForm = () => {
         </p>
       </div>
 
-      <form className="space-y-3.5 sm:space-y-4">
+      <form className="space-y-3.5 sm:space-y-4" onSubmit={handleSubmit}>
         <div>
           <label className="mb-1.5 block text-sm font-bold text-[#00132F]">
             שם מלא
@@ -30,6 +58,9 @@ const RegisterForm = () => {
               type="text"
               placeholder="הכניסו שם מלא"
               className="w-full min-w-0 bg-transparent text-base outline-none placeholder:text-slate-400"
+              name="name"
+              value={form.name}
+              onChange={handleChange}
             />
           </div>
         </div>
@@ -45,6 +76,9 @@ const RegisterForm = () => {
               type="email"
               placeholder="example@email.com"
               className="w-full min-w-0 bg-transparent text-base outline-none placeholder:text-slate-400"
+              name="email"
+              value={form.email}
+              onChange={handleChange}
             />
           </div>
         </div>
@@ -60,6 +94,9 @@ const RegisterForm = () => {
               type="password"
               placeholder="בחרו סיסמה"
               className="w-full min-w-0 bg-transparent text-base outline-none placeholder:text-slate-400"
+              name="password"
+              value={form.password}
+              onChange={handleChange}
             />
           </div>
         </div>

@@ -7,6 +7,7 @@ import {
   FaCheckCircle,
   FaPhoneAlt,
 } from "react-icons/fa";
+import { MdVerified } from "react-icons/md";
 
 const Professionals = () => {
   const profiles = [
@@ -106,7 +107,7 @@ const Professionals = () => {
                           {pro.name}
                         </h3>
 
-                        <FaCheckCircle className="text-sm text-[#FEBC37]" />
+                        <MdVerified className="text-[#2FA4D7] size-4.5 mt-0.5" />
                       </div>
 
                       <p className="mt-1 text-sm font-semibold text-slate-600">

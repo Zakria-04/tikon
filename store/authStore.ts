@@ -1,31 +1,9 @@
 import { create } from "zustand";
 import { produce } from "immer";
-import { loginAPI } from "@/assets/res/api";
+import { getProfileAPI, loginAPI, registerAPI } from "@/assets/res/api";
+import { AuthStoreType } from "./types/AuthStoreType";
 
-type User = {
-  _id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  role: "customer" | "professional";
-  isLoggedIn: boolean;
-};
-
-type AuthStore = {
-  // states
-  user: User | null;
-  auth: boolean;
-
-  // functions
-  login: (body: { email: string; password: string }) => Promise<User>;
-  logout: () => void;
-
-  // other
-  isLoading: boolean;
-  error: string | null;
-};
-
-export const useAuthStore = create<AuthStore>((set) => ({
+export const useAuthStore = create<AuthStoreType>((set) => ({
   user: null,
   auth: false,
   isLoading: false,
@@ -34,10 +12,9 @@ export const useAuthStore = create<AuthStore>((set) => ({
     set({ isLoading: false, error: null });
     try {
       const data = await loginAPI(body);
-      console.log("data from zustand", data);
 
       set(
-        produce<AuthStore>((state) => {
+        produce<AuthStoreType>((state) => {
           state.user = data.data;
           state.auth = true;
           state.isLoading = false;
@@ -51,7 +28,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
         error instanceof Error ? error.message : "Failed to login";
 
       set(
-        produce<AuthStore>((state) => {
+        produce<AuthStoreType>((state) => {
           state.user = null;
           state.auth = false;
           state.isLoading = false;
@@ -62,5 +39,58 @@ export const useAuthStore = create<AuthStore>((set) => ({
       throw error;
     }
   },
-  logout: () => set({ user: null }),
+  register: async (body) => {
+    set({ isLoading: true, error: null });
+    try {
+      const response = await registerAPI(body);
+
+      set(
+        produce<AuthStoreType>((state) => {
+          state.user = response.data;
+          state.auth = true;
+          state.isLoading = false;
+          state.error = null;
+        }),
+      );
+
+      return response.data;
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "Failed to register";
+
+      set(
+        produce<AuthStoreType>((state) => {
+          state.user = null;
+          state.auth = false;
+          state.isLoading = false;
+          state.error = message;
+        }),
+      );
+
+      throw error;
+    }
+  },
+  logout: () => set({ user: null, auth: false }),
+  getProfile: async () => {
+    set({ isLoading: true, error: null });
+    try {
+      const response = await getProfileAPI();
+      set({
+        user: response.data.user,
+        auth: true,
+        isLoading: false,
+        error: null,
+      });
+      return response.data.user;
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "Failed to fetch profile";
+      set({
+        user: null,
+        auth: false,
+        isLoading: false,
+        error: message,
+      });
+    }
+  },
 }));
