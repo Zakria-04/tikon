@@ -1,5 +1,7 @@
+'use client'
 import profile from "@/assets/images/profile.png";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import {
   FaStar,
   FaMapMarkerAlt,
@@ -10,8 +12,10 @@ import {
 import { MdVerified } from "react-icons/md";
 
 const Professionals = () => {
+  const router = useRouter();
   const profiles = [
     {
+      _id: "1",
       name: "יוסף כהן",
       category: "חשמלאי",
       city: "חיפה",
@@ -23,6 +27,7 @@ const Professionals = () => {
       profile,
     },
     {
+      _id: "2",
       name: "אחמד חליל",
       category: "שיפוצים",
       city: "עכו",
@@ -33,6 +38,7 @@ const Professionals = () => {
       profile,
     },
     {
+      _id: "3",
       name: "דוד לוי",
       category: "אינסטלטור",
       city: "נהריה",
@@ -44,6 +50,7 @@ const Professionals = () => {
       profile,
     },
     {
+      _id: "4",
       name: "מוחמד עבד",
       category: "מיזוג אוויר",
       city: "כרמיאל",
@@ -54,6 +61,10 @@ const Professionals = () => {
       profile,
     },
   ];
+
+  const navigateToProfessionalsProfile = (id: string) => {
+    router.push(`/professionals/${id}`);
+  };
 
   return (
     <section className="px-5 pb-14" dir="rtl">
@@ -142,7 +153,10 @@ const Professionals = () => {
               </div>
 
               <div className="mt-4 flex gap-2">
-                <button className="flex-1 rounded-2xl bg-[#00132F] px-4 py-3 text-sm font-bold text-white transition hover:bg-[#FEBC37] hover:text-[#00132F]">
+                <button
+                  onClick={() => navigateToProfessionalsProfile(pro._id)}
+                  className="flex-1 rounded-2xl bg-[#00132F] px-4 py-3 text-sm font-bold text-white transition hover:bg-[#FEBC37] hover:text-[#00132F]"
+                >
                   צפייה בפרופיל
                 </button>
 

@@ -1,11 +1,14 @@
+'use client'
 import postJobBG from "@/assets/images/postJobBG.png";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { FaArrowLeft, FaMapMarkerAlt, FaShekelSign } from "react-icons/fa";
 import { MdWorkOutline } from "react-icons/md";
 
 const PostJobCTA = () => {
+  const router = useRouter();
   return (
-    <section className="px-5 pb-16" dir="rtl">
+    <section className="px-5 pb-16">
       <div className="mx-auto max-w-6xl">
         <div className="overflow-hidden rounded-4xl bg-[#00132F] shadow-xl">
           <div className="relative">
@@ -72,7 +75,7 @@ const PostJobCTA = () => {
               לפנות אליכם ישירות.
             </p>
 
-            <button className="mt-5 flex w-full items-center justify-center gap-2 rounded-2xl bg-[#FEBC37] px-5 py-3 text-sm font-bold text-[#00132F] shadow-sm transition hover:bg-[#f3ad18]">
+            <button onClick={() => router.push("/jobs")} className="mt-5 flex w-full items-center justify-center gap-2 rounded-2xl bg-[#FEBC37] px-5 py-3 text-sm font-bold text-[#00132F] shadow-sm transition hover:bg-[#f3ad18]">
               פרסום בקשה עכשיו
               <FaArrowLeft className="text-xs" />
             </button>
