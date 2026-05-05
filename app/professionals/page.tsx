@@ -1,19 +1,16 @@
 "use client";
-import Image from "next/image";
-import { useState } from "react";
-import { FaBriefcase, FaMapMarkerAlt, FaPhoneAlt } from "react-icons/fa";
-import { MdVerified } from "react-icons/md";
-import profile from "@/assets/images/profile.png";
-import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import FilterBar from "./components/FilterBar";
 import ProfessionalsProfiles from "./components/ProfessionalsProfiles";
 import Header from "@/components/Header";
+import { categories } from "@/assets/res/data";
 
 const professionals = [
   {
     _id: "1",
     name: "יוסף כהן",
-    category: "חשמלאי",
+    categoryLabel: "חשמלאי",
+    category: "electrician",
     city: "חיפה",
     region: "צפון",
     description:
@@ -23,7 +20,8 @@ const professionals = [
   {
     _id: "2",
     name: "אחמד חליל",
-    category: "שיפוצים",
+    categoryLabel: "שיפוצים",
+    category: "renovation",
     city: "עכו",
     region: "צפון",
     description: "מתמחה בעבודות שיפוץ, תיקוני קירות, צבע וגבס.",
@@ -32,7 +30,8 @@ const professionals = [
   {
     _id: "3",
     name: "דוד לוי",
-    category: "אינסטלטור",
+    categoryLabel: "אינסטלטור",
+    category: "plumbing",
     city: "נהריה",
     region: "צפון",
     description: "פתיחת סתימות, תיקון נזילות והחלפת ברזים.",
@@ -41,7 +40,8 @@ const professionals = [
   {
     _id: "4",
     name: "מוחמד עבד",
-    category: "מיזוג אוויר",
+    categoryLabel: "מיזוג אוויר",
+    category: "ac",
     city: "כרמיאל",
     region: "צפון",
     description: "התקנה וניקוי מזגנים עם שירות מהיר ומקצועי.",
@@ -50,14 +50,18 @@ const professionals = [
 ];
 
 const Professionals = () => {
-  const [selectedCity, setSelectedCity] = useState("");
-  const [selectedRegion, setSelectedRegion] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const searchParams = useSearchParams();
+  const category = searchParams.get("category") || "all";
+  const city = searchParams.get("city") || "all";
+  const region = searchParams.get("region") || "all";
+
+  const getCategoryLabel = (value: string) =>
+    categories.find((c) => c.category === value)?.name || "כל הקטגוריות";
 
   const filteredProfiles = professionals.filter((pro) => {
-    if (selectedCategory && pro.category !== selectedCategory) return false;
-    if (selectedCity) return pro.city === selectedCity;
-    if (selectedRegion) return pro.region === selectedRegion;
+    if (category !== "all" && pro.category !== category) return false;
+    if (city !== "all" && pro.city !== city) return false;
+    if (region !== "all" && pro.region !== region) return false;
     return true;
   });
 
@@ -65,22 +69,13 @@ const Professionals = () => {
     <div className="min-h-screen bg-[#F8FAFC]">
       <Header />
       <div className="mx-auto max-w-6xl">
-        {/* Filter Bar */}
-        <FilterBar
-          setSelectedCity={setSelectedCity}
-          setSelectedRegion={setSelectedRegion}
-          setSelectedCategory={setSelectedCategory}
-          selectedCity={selectedCity}
-          selectedRegion={selectedRegion}
-          selectedCategory={selectedCategory}
-        />
+        <FilterBar />
         <div className="px-4 py-6">
-          {/* Results */}
           <p className="mb-4 text-xs text-slate-400">
             נמצאו {filteredProfiles.length} אנשי מקצוע
+            {category !== "all" && ` • ${getCategoryLabel(category)}`}
           </p>
 
-          {/* Grid */}
           {filteredProfiles.length === 0 ? (
             <div className="py-20 text-center text-slate-400">
               <p className="text-3xl">🔍</p>

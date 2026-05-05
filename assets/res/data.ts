@@ -11,42 +11,50 @@ export const categories = [
   {
     name: "שיפוצים",
     bio: "שיפוץ ביתי",
+    category: "renovation",
     image: renovation,
   },
   {
     name: "חשמל",
     bio: "תיקוני חשמל",
+    category: "electrician",
     image: electrician,
   },
   {
     name: "צבע",
     bio: "צביעת בתים",
+    category: "painting",
     image: paintRoller,
   },
   {
     name: "אינסטלציה",
     bio: "תיקוני צנרת",
+    category: "plumbing",
     image: plumber,
   },
 
   {
     name: "מזגנים",
     bio: "ריצוף וחיפוי",
+    category: "ac",
     image: ac,
   },
   {
     name: "ריצוף",
     bio: "ריצוף וחיפוי",
+    category: "tiling",
     image: tile,
   },
   {
     name: "נגרות",
     bio: "ארונות ומטבחים",
+    category: "cabinetmaking",
     image: closet,
   },
   {
     name: "גבס",
     bio: "עבודות גבס",
+    category: "gypsum",
     image: gypsum,
   },
 ];

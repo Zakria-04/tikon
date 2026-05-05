@@ -1,9 +1,14 @@
 import React from "react";
 
-interface FilterSelect {
+interface FilterSelectOption {
+  label: string;
+  value: string;
+}
+
+interface FilterSelectProps {
   value: string;
   onChange: (v: string) => void;
-  options: string[];
+  options: FilterSelectOption[];
   placeholder: string;
   icon: React.ReactNode;
 }
@@ -14,7 +19,7 @@ const FilterSelect = ({
   options,
   placeholder,
   icon,
-}: FilterSelect) => {
+}: FilterSelectProps) => {
   return (
     <div className="relative">
       <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[#FEBC37]">
@@ -28,7 +33,9 @@ const FilterSelect = ({
       >
         <option value="">{placeholder}</option>
         {options.map((opt) => (
-          <option key={opt}>{opt}</option>
+          <option key={opt.value} value={opt.value}>
+            {opt.label}
+          </option>
         ))}
       </select>
 

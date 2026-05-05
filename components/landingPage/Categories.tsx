@@ -1,7 +1,16 @@
+'use client'
 import Image from "next/image";
 import { categories } from "@/assets/res/data";
+import { useRouter } from "next/navigation";
 
 const Categories = () => {
+  const router = useRouter();
+  const navigateToProfessionalsPage = (selectedCategory: string) => {
+    router.push(
+      `/professionals?category=${selectedCategory}&region=all&city=all`,
+    );
+  };
+
   return (
     <section className="px-5 pb-10 mt-10">
       <div className="mx-auto max-w-6xl">
@@ -29,6 +38,7 @@ const Categories = () => {
             <button
               key={`${category.name}-${index}`}
               className="group rounded-3xl border border-slate-100 bg-white p-4 text-right shadow-sm transition hover:-translate-y-1 hover:border-[#FEBC37]/60 hover:shadow-lg"
+              onClick={() => navigateToProfessionalsPage(category.value)}
             >
               <div className="flex items-center gap-3">
                 <div className="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-gray-50 transition group-hover:bg-gray-100">

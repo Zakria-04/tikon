@@ -4,13 +4,13 @@ import { FaBriefcase, FaMapMarkerAlt, FaPhoneAlt } from "react-icons/fa";
 import { MdVerified } from "react-icons/md";
 import profile from "@/assets/images/profile.png";
 import { useRouter } from "next/navigation";
-import Header from "@/components/Header";
 
 interface ProfessionalsProfilesProps {
   filteredProfiles: {
     _id: string;
     name: string;
     category: string;
+    categoryLabel: string;
     city: string;
     region: string;
     description: string;
@@ -25,6 +25,7 @@ const ProfessionalsProfiles = ({
   const navigateToProfessionalsProfile = (id: string) => {
     router.push(`/professionals/${id}`);
   };
+
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {filteredProfiles.map((pro, index) => (
@@ -33,7 +34,6 @@ const ProfessionalsProfiles = ({
           className="rounded-3xl border border-slate-100 bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:border-[#FEBC37]/50 hover:shadow-xl"
         >
           <div className="flex items-start gap-4">
-            {/* Rounded profile image */}
             <div className="relative size-20 shrink-0 overflow-hidden rounded-full border-4 border-gray-100 bg-slate-100 shadow-sm">
               <Image
                 src={profile}
@@ -43,7 +43,6 @@ const ProfessionalsProfiles = ({
               />
             </div>
 
-            {/* Main info */}
             <div className="min-w-0 flex-1">
               <div className="flex items-start justify-between gap-3">
                 <div>
@@ -51,12 +50,10 @@ const ProfessionalsProfiles = ({
                     <h3 className="text-lg font-bold text-[#00132F]">
                       {pro.name}
                     </h3>
-
                     <MdVerified className="text-[#2FA4D7] size-4.5 mt-0.5" />
                   </div>
-
                   <p className="mt-1 text-sm font-semibold text-slate-600">
-                    {pro.category}
+                    {pro.categoryLabel}
                   </p>
                 </div>
               </div>
@@ -66,7 +63,6 @@ const ProfessionalsProfiles = ({
                   <FaMapMarkerAlt className="text-[#FEBC37]" />
                   {pro.city}
                 </span>
-
                 <span className="flex items-center gap-1">
                   <FaBriefcase className="text-[#FEBC37]" />
                   {pro.experience}+ שנות ניסיון
@@ -86,7 +82,6 @@ const ProfessionalsProfiles = ({
             >
               צפייה בפרופיל
             </button>
-
             <button
               aria-label={`צור קשר עם ${pro.name}`}
               className="flex size-12 items-center justify-center rounded-2xl border border-slate-200 text-[#00132F] transition hover:border-[#FEBC37] hover:bg-[#FEBC37]/10"

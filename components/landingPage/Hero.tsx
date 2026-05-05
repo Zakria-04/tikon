@@ -4,6 +4,7 @@ import { useState } from "react";
 import background from "@/assets/images/background.png";
 import Image from "next/image";
 import { FaSearch, FaMapMarkerAlt, FaTools } from "react-icons/fa";
+import { categories } from "@/assets/res/data";
 
 const cities = [
   "תל אביב",
@@ -13,17 +14,6 @@ const cities = [
   "פתח תקווה",
   "באר שבע",
   "עכו",
-];
-
-const categories = [
-  "שיפוצים",
-  "חשמלאי",
-  "צבע",
-  "אינסטלציה",
-  "מזגנים",
-  "ריצוף",
-  "נגרות",
-  "גבס",
 ];
 
 const regions = ["צפון", "מרכז", "דרום"];
@@ -42,7 +32,7 @@ const Hero = () => {
   //   });
 
   //   // later:
-  //   // router.push(`/professionals?city=${selectedCity}&category=${selectedCategory}&service=${service}`);
+  // router.push(`/professionals?city=${selectedCity}&category=${selectedCategory}&service=${service}`);
   // };
 
   const handleSearch = () => {
@@ -169,8 +159,8 @@ const Hero = () => {
                 <option value="">כל הקטגוריות</option>
 
                 {categories.map((cat) => (
-                  <option key={cat} value={cat}>
-                    {cat}
+                  <option key={cat.value} value={cat.value}>
+                    {cat.name}
                   </option>
                 ))}
               </select>
