@@ -1,3 +1,4 @@
+'use client';
 import { categories, cities, regions } from "@/assets/res/data";
 import React, { useEffect, useRef, useState } from "react";
 import FilterSelect from "./FilterSelect";
