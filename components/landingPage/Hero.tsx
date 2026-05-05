@@ -159,7 +159,7 @@ const Hero = () => {
                 <option value="">כל הקטגוריות</option>
 
                 {categories.map((cat) => (
-                  <option key={cat.value} value={cat.value}>
+                  <option key={cat.category} value={cat.category}>
                     {cat.name}
                   </option>
                 ))}

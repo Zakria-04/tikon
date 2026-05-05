@@ -36,9 +36,9 @@ const Categories = () => {
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
           {categories.map((category, index) => (
             <button
-              key={`${category.name}-${index}`}
+              key={`${category.category}-${index}`}
               className="group rounded-3xl border border-slate-100 bg-white p-4 text-right shadow-sm transition hover:-translate-y-1 hover:border-[#FEBC37]/60 hover:shadow-lg"
-              onClick={() => navigateToProfessionalsPage(category.value)}
+              onClick={() => navigateToProfessionalsPage(category.category)}
             >
               <div className="flex items-center gap-3">
                 <div className="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-gray-50 transition group-hover:bg-gray-100">
